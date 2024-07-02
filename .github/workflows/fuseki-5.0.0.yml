@@ -24,5 +24,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile-5.0.0
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: hansidm/fuseki:5.0.0,hanidm/fuseki:latest
+          tags: hansidm/fuseki:5.0.0,hansidm/fuseki:latest
