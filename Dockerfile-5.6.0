@@ -1,0 +1,12 @@
+FROM eclipse-temurin:21-jre
+
+RUN mkdir /ds
+RUN wget https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-5.6.0.tar.gz
+RUN tar -xzf apache-jena-fuseki-5.6.0.tar.gz && rm apache-jena-fuseki-5.6.0.tar.gz
+RUN mv apache-jena-fuseki-5.6.0 /usr/local/fuseki
+COPY shiro.ini /usr/local/fuseki/run/shiro.ini
+WORKDIR /usr/local/fuseki
+
+EXPOSE 3030
+
+CMD ["./fuseki-server", "--loc", "/ds", "--update", "/ds"]
