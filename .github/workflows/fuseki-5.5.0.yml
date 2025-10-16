@@ -21,9 +21,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/bake-action@v6
         with:
-          file: ./Dockerfile-5.5.0
-          platforms: linux/amd64,linux/arm64
+          files: ./docker-bake.hcl
+          targets: fuseki-5-5-0
           push: true
-          tags: hansidm/fuseki:5.5.0,hansidm/fuseki:latest
