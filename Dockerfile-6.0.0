@@ -1,0 +1,27 @@
+FROM eclipse-temurin:25-jre
+
+RUN mkdir /ds
+
+RUN apt update && apt install -y wget
+RUN wget https://downloads.apache.org/jena/binaries/apache-jena-fuseki-6.0.0.tar.gz
+RUN wget https://downloads.apache.org/jena/binaries/apache-jena-fuseki-6.0.0.tar.gz.sha512
+RUN wget https://downloads.apache.org/jena/binaries/apache-jena-6.0.0.tar.gz
+RUN wget https://downloads.apache.org/jena/binaries/apache-jena-6.0.0.tar.gz.sha512
+
+RUN sha512sum -c apache-jena-fuseki-6.0.0.tar.gz.sha512
+RUN sha512sum -c apache-jena-6.0.0.tar.gz.sha512
+
+RUN tar -xzf apache-jena-6.0.0.tar.gz && rm apache-jena-6.0.0.tar.gz
+RUN tar -xzf apache-jena-fuseki-6.0.0.tar.gz && rm apache-jena-fuseki-6.0.0.tar.gz
+RUN mv apache-jena-fuseki-6.0.0 /usr/local/fuseki
+RUN mv apache-jena-6.0.0 /usr/local/jena
+RUN rm apache-jena-fuseki-6.0.0.tar.gz.sha512 apache-jena-6.0.0.tar.gz.sha512
+
+ENV PATH="/usr/local/fuseki/bin:/usr/local/jena/bin:${PATH}"
+
+COPY shiro.ini /usr/local/fuseki/run/shiro.ini
+WORKDIR /usr/local/fuseki
+
+EXPOSE 3030
+
+CMD ["./fuseki-server", "--loc", "/ds", "--update", "/ds"]

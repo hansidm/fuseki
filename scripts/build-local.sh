@@ -9,8 +9,8 @@ Usage: scripts/build-local.sh [TARGET]
 Builds a Fuseki Docker image locally using docker buildx bake.
 
 Arguments:
-  TARGET    Optional bake target or group to build (default: fuseki-5-6-0).
-            You may pass version formats like 5.6.0 or fuseki-5.6.0; they will
+  TARGET    Optional bake target or group to build (default: fuseki-6-0-0).
+            You may pass version formats like 6.0.0 or fuseki-6.0.0; they will
             be normalized automatically.
 
 Environment variables:
@@ -22,7 +22,7 @@ Environment variables:
 Examples:
   scripts/build-local.sh
   scripts/build-local.sh 5.5.0
-  OUTPUT=push PLATFORM=linux/amd64,linux/arm64 scripts/build-local.sh fuseki-5.6.0
+  OUTPUT=push PLATFORM=linux/amd64,linux/arm64 scripts/build-local.sh fuseki-6.0.0
 
 EOF
 }
@@ -35,7 +35,7 @@ fi
 normalize_target() {
   local value="${1}"
   if [[ -z "${value}" ]]; then
-    echo "fuseki-5-6-0"
+    echo "fuseki-6-0-0"
     return
   fi
 
@@ -51,7 +51,7 @@ normalize_target() {
   esac
 }
 
-RAW_TARGET="${1:-fuseki-5-6-0}"
+RAW_TARGET="${1:-fuseki-6-0-0}"
 TARGET="$(normalize_target "${RAW_TARGET}")"
 PLATFORM="${PLATFORM:-linux/amd64}"
 OUTPUT="${OUTPUT:-load}"
