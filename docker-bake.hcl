@@ -17,7 +17,6 @@ target "fuseki-5-5-0" {
   dockerfile = "Dockerfile-5.5.0"
   tags = [
     "hansidm/fuseki:5.5.0",
-    "hansidm/fuseki:latest",
   ]
   platforms = [
     "linux/amd64",
@@ -30,7 +29,6 @@ target "fuseki-5-6-0" {
   dockerfile = "Dockerfile-5.6.0"
   tags = [
     "hansidm/fuseki:5.6.0",
-    "hansidm/fuseki:latest",
   ]
   platforms = [
     "linux/amd64",
