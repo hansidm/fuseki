@@ -2,6 +2,7 @@ FROM eclipse-temurin:25-jre
 
 RUN mkdir /ds
 
+RUN apt update && apt install -y wget
 RUN wget https://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-5.6.0.tar.gz
 RUN wget https://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-5.6.0.tar.gz.sha512
 RUN wget https://archive.apache.org/dist/jena/binaries/apache-jena-5.6.0.tar.gz
