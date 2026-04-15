@@ -1,12 +1,13 @@
 FROM eclipse-temurin:21-jre
 
-RUN mkdir /ds
+RUN mkdir -p /ds/tdb2 /ds/lucene
 RUN wget https://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-5.5.0.tar.gz
 RUN tar -xzf apache-jena-fuseki-5.5.0.tar.gz && rm apache-jena-fuseki-5.5.0.tar.gz
 RUN mv apache-jena-fuseki-5.5.0 /usr/local/fuseki
 COPY shiro.ini /usr/local/fuseki/run/shiro.ini
+COPY config.ttl /usr/local/fuseki/run/config.ttl
 WORKDIR /usr/local/fuseki
 
 EXPOSE 3030
 
-CMD ["./fuseki-server", "--loc", "/ds", "--update", "/ds"]
+CMD ["./fuseki-server", "--config=/usr/local/fuseki/run/config.ttl"]

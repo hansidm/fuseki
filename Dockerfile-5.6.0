@@ -1,6 +1,6 @@
 FROM eclipse-temurin:25-jre
 
-RUN mkdir /ds
+RUN mkdir -p /ds/tdb2 /ds/lucene
 
 RUN apt update && apt install -y wget
 RUN wget https://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-5.6.0.tar.gz
@@ -20,8 +20,9 @@ RUN rm apache-jena-fuseki-5.6.0.tar.gz.sha512 apache-jena-5.6.0.tar.gz.sha512
 ENV PATH="/usr/local/fuseki/bin:/usr/local/jena/bin:${PATH}"
 
 COPY shiro.ini /usr/local/fuseki/run/shiro.ini
+COPY config.ttl /usr/local/fuseki/run/config.ttl
 WORKDIR /usr/local/fuseki
 
 EXPOSE 3030
 
-CMD ["./fuseki-server", "--loc", "/ds", "--update", "/ds"]
+CMD ["./fuseki-server", "--config=/usr/local/fuseki/run/config.ttl"]
